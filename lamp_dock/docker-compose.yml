@@ -6,7 +6,7 @@ services:
   php:
     build: ./php # phpディレクトリのDockerfileに基づいてコンテナ作成
     volumes:
-      - ./lamp_dock/www:/var/www # ホストのhtmlディレクトリをphpコンテナのドキュメントルートと同期。
+      - C:/Users/baske/MyDocker/lamp_practice/lamp_dock/www:/var/www # ホストのhtmlディレクトリをphpコンテナのドキュメントルートと同期。
     ports:
       - 8080:80 # ホストの8080番ポートをコンテナの80番ポートにフォワード（転送）
     depends_on:
