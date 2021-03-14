@@ -207,9 +207,6 @@ function is_valid_item_status($status){
   return $is_valid;
 }
 
-function h($word){
-  if(isset($word)===TRUE){
-    $word = htmlspecialchars($word,ENT_QUOTES,'utf-8');
-  }
-  return($word);
+function h($str){
+  return htmlspecialchars($str,ENT_QUOTES,'UTF-8');
 }
