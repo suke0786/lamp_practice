@@ -5,20 +5,10 @@ require_once MODEL_PATH . 'db.php';
 // DB利用
 
 function get_item($db, $item_id){
-  $sql = "
-    SELECT
-      item_id, 
-      name,
-      stock,
-      price,
-      image,
-      status
-    FROM
-      items
-    WHERE
-      item_id = {$item_id}
-  ";
-
+  $sql = 'SELECT item_id,name,stock,price,image,status FROM items WHERE item_id = ?';
+  $stmt = $dbh->prepare($sql);
+  $stmt->bindValue(1,$item_id,PDO::PARAM_STR);
+  $stmt->execute();
   return fetch_query($db, $sql);
 }
 
@@ -73,46 +63,32 @@ function regist_item_transaction($db, $name, $price, $stock, $status, $image, $f
 
 function insert_item($db, $name, $price, $stock, $filename, $status){
   $status_value = PERMITTED_ITEM_STATUSES[$status];
-  $sql = "
-    INSERT INTO
-      items(
-        name,
-        price,
-        stock,
-        image,
-        status
-      )
-    VALUES('{$name}', {$price}, {$stock}, '{$filename}', {$status_value});
-  ";
-
+  $sql = 'INSERT INTO items(name,price,stock,image,status) VALUES(?, ?, ?, ?, ?)';
+  $stmt = $dbh->prepare($sql);
+  $stmt->bindValue(1,$name,PDO::PARAM_STR);
+  $stmt->bindValue(2,$price,PDO::PARAM_STR);
+  $stmt->bindValue(3,$stock,PDO::PARAM_STR);
+  $stmt->bindValue(4,$filename,PDO::PARAM_STR);
+  $stmt->bindValue(5,$status_value,PDO::PARAM_STR);
+  $stmt->execute();
   return execute_query($db, $sql);
 }
 
 function update_item_status($db, $item_id, $status){
-  $sql = "
-    UPDATE
-      items
-    SET
-      status = {$status}
-    WHERE
-      item_id = {$item_id}
-    LIMIT 1
-  ";
-  
+  $sql = 'UPDATE items SET status = ? WHERE item_id = ? LIMIT 1';
+  $stmt = $dbh->prepare($sql);
+  $stmt->bindValue(1,$status,PDO::PARAM_STR);
+  $stmt->bindValue(2,$item_id,PDO::PARAM_STR);
+  $stmt->execute();
   return execute_query($db, $sql);
 }
 
 function update_item_stock($db, $item_id, $stock){
-  $sql = "
-    UPDATE
-      items
-    SET
-      stock = {$stock}
-    WHERE
-      item_id = {$item_id}
-    LIMIT 1
-  ";
-  
+  $sql = 'UPDATE items SET stock = ? WHERE item_id = ? LIMIT 1 ';
+  $stmt = $dbh->prepare($sql);
+  $stmt->bindValue(1,$stock,PDO::PARAM_STR);
+  $stmt->bindValue(2,$item_id,PDO::PARAM_STR);
+  $stmt->execute();
   return execute_query($db, $sql);
 }
 
@@ -132,14 +108,10 @@ function destroy_item($db, $item_id){
 }
 
 function delete_item($db, $item_id){
-  $sql = "
-    DELETE FROM
-      items
-    WHERE
-      item_id = {$item_id}
-    LIMIT 1
-  ";
-  
+  $sql = 'DELETE FROM items WHERE item_id = {$item_id} LIMIT 1';
+  $stmt = $dbh->prepare($sql);
+  $stmt->bindValue(1,$item_id,PDO::PARAM_STR);
+  $stmt->execute();
   return execute_query($db, $sql);
 }
 
