@@ -31,7 +31,6 @@ services:
     image: phpmyadmin/phpmyadmin # phpmyadminのコンテナイメージをそのまま利用
     environment:
       - PMA_HOST=mysql # 上記で作成したmysqlコンテナに接続
-      - "TZ=Asia/Tokyo" # タイムゾーンを設定
     depends_on:
       - mysql # 上記で作成したmysqlコンテナとリンクする
     ports:
