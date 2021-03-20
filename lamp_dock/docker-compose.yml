@@ -35,5 +35,3 @@ services:
       - mysql # 上記で作成したmysqlコンテナとリンクする
     ports:
       - 8888:80 # ホストの8888番ポートをphpmyadminコンテナの80番ポートに転送
-    volumes:
-      - C:/Users/baske/MyDocker/lamp_practice/pma/sessions:/sessions # ホストOSのpmaディレクトリ内にphpmyadminコンテナのセッションファイルを保存
