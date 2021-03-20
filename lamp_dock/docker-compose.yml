@@ -1,5 +1,7 @@
-version: ‘3’ # 設定ファイルの文法のバージョン３を利用する。
+version: '3' # 設定ファイルの文法のバージョン３を利用する。
+
 services:
+
   # 1. phpモジュールを搭載したapacheをインストールするコンテナ。
   php:
     build: ./php # phpディレクトリのDockerfileに基づいてコンテナ作成
@@ -9,6 +11,7 @@ services:
       - 8080:80 # ホストの8080番ポートをコンテナの80番ポートにフォワード（転送）
     depends_on:
       - mysql
+
   # 2. mysqlをインストールするコンテナ
   mysql:
     image: mysql:5.7 # mysql5.7のイメージをそのまま利用。
@@ -21,7 +24,8 @@ services:
       - MYSQL_DATABASE=sample # デフォルトで作成するデータベース名を設定
       - MYSQL_USER=testuser # デフォルトで作成するDBユーザー名を設定
       - MYSQL_PASSWORD=password # デフォルトで作成するDBユーザーのパスワードを設定
-      - “TZ=Asia/Tokyo” # タイムゾーンを設定
+      - "TZ=Asia/Tokyo" # タイムゾーンを設定
+
   # 3. phpmyadminをインストールするコンテナ
   phpmyadmin:
     image: phpmyadmin/phpmyadmin # phpmyadminのコンテナイメージをそのまま利用
