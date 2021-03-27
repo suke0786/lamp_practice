@@ -4,7 +4,7 @@ require_once MODEL_PATH . 'db.php';
 
 function get_user($db, $user_id){
   $sql = 'select user_id,name,password,type FROM users WHERE user_id = ? LIMIT 1 ';
-  return fetch_query($db, $sql,$user_id);
+  return fetch_query($db, $sql,[$user_id]);
 }
 
 
