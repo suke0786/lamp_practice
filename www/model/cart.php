@@ -124,7 +124,6 @@ function delete_user_carts($db, $user_id){
   execute_query($db, $sql,[$user_id]);
 }
 
-
 function sum_carts($carts){
   $total_price = 0;
   foreach($carts as $cart){
