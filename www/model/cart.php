@@ -1,6 +1,7 @@
 <?php 
 require_once MODEL_PATH . 'functions.php';
 require_once MODEL_PATH . 'db.php';
+require_once MODEL_PATH . 'history.php';
 
 function get_user_carts($db, $user_id){
   $sql = 'SELECT
@@ -101,6 +102,9 @@ function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
   }
+
+  $db->beginTransaction();
+  try {
   foreach($carts as $cart){
     if(update_item_stock(
         $db, 
@@ -109,6 +113,13 @@ function purchase_carts($db, $carts){
       ) === false){
       set_error($cart['name'] . 'の購入に失敗しました。');
     }
+      insert_history($db,$cart['user_id']);
+      insert_detail($db,$history_id = $db->lastInsertId(),$cart['item_id'],$cart['amount'],$cart['price']);
+    }
+  $db->commit();
+  } catch (PDOException $e) {
+    $db->rollback();
+    set_error('商品が購入できませんでした。');
   }
   
   delete_user_carts($db, $carts[0]['user_id']);
