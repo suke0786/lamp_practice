@@ -47,6 +47,43 @@ function get_user_history($db,$user_id) {
     return fetch_all_query($db,$sql,[$user_id]);
 }
 
+function get_user_detail($db,$history_id) {
+  $sql = "
+    SELECT 
+      history.history_id,
+      history.purchase_datetime,
+      detail.amount,
+      detail.price
+    FROM
+      history
+    JOIN
+      detail
+    ON
+      history.history_id = detail.history_id
+    WHERE
+      history.history_id = ?
+    ";
+    return fetch_all_query($db,$sql,[$history_id]);
+}
+
+function get_history_detail($db,$history_id){
+  $sql = "
+    SELECT 
+      items.name,
+      detail.amount,
+      detail.price
+    FROM
+      detail
+    INNER JOIN
+      items
+    ON
+      detail.item_id = items.item_id
+    WHERE
+      history_id = ?
+    ";
+  return fetch_all_query($db,$sql,[$history_id]);
+}
+
 function sum_history($history) {
   for($i=1; $i<=count($history); $i++){
     $total_price = array();

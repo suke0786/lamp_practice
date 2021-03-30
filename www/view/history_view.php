@@ -24,13 +24,13 @@
                 </thead>
                 <thbody>
                 <?php foreach ($history as $history) {?>
-                    <form action='detail.php' method="POST">
+                    <form action='detail.php' method="post">
                         <tr>
                             <th><?php print $history['history_id'];?></th>
                             <th><?php print $history['purchase_datetime'];?></th>
                             <th><?php print $total_price[$history['history_id']];?></th>
+                            <th><input type="hidden" name='history_id' value="<?php print $history['history_id'];?>"></th>
                             <th><input type="submit" name="detail" value="購入明細"></th>
-                            <input type="hidden" value="history_id">
                         </tr>
                     </form>
                     <?php } ;?>

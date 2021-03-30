@@ -14,10 +14,13 @@ if(is_logined() === false) {
 
 $db = get_db_connect();
 $user = get_login_user($db);
+$history_id = $_POST['history_id'];
 
-$history = get_user_history($db,$user['user_id']);
+$history = get_user_detail($db,$history_id);
 
+$detail = get_history_detail($db,$history_id);
 
+$total_price = sum_history($history);
 
 
 include_once VIEW_PATH . 'detail_view.php';
