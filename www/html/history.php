@@ -15,10 +15,9 @@ if(is_logined() === false) {
 $db = get_db_connect();
 $user = get_login_user($db);
 
-$history = get_user_history($db,$user['user_id']);
+$history = get_user_history($db,$user['name'],$user['user_id']);
 
 $total_price = sum_history($history);
-
 
 
 include_once VIEW_PATH . 'history_view.php';

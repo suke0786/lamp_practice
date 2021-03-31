@@ -28,23 +28,41 @@ function insert_detail($db,$history_id,$item_id,$amount,$price){
   return execute_query($db, $sql,[$history_id,$item_id,$amount,$price]);
 }
 
-function get_user_history($db,$user_id) {
-  $sql = "
-    SELECT 
-      history.history_id,
-      history.purchase_datetime,
-      detail.amount,
-      detail.price
-    FROM
-      history
-    JOIN
-      detail
-    ON
-      history.history_id = detail.history_id
-    WHERE
-      user_id = ?
-    ";
-    return fetch_all_query($db,$sql,[$user_id]);
+function get_user_history($db,$user_name,$user_id) {
+  if($user_name !== 'admin') {
+    $sql = "
+      SELECT 
+        history.history_id,
+        history.purchase_datetime,
+        detail.amount,
+        detail.price
+      FROM
+        history
+      JOIN
+        detail
+      ON
+        history.history_id = detail.history_id
+      WHERE
+        user_id = ?
+      ";
+      return fetch_all_query($db,$sql,[$user_id]);
+  } else {
+    $sql = "
+      SELECT 
+        history.history_id,
+        history.purchase_datetime,
+        history.user_id,
+        detail.amount,
+        detail.price
+      FROM
+        history
+      JOIN
+        detail
+      ON
+        history.history_id = detail.history_id
+      ";
+      return fetch_all_query($db,$sql);
+    }
 }
 
 function get_user_detail($db,$history_id) {

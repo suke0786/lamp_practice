@@ -18,6 +18,9 @@
                 <thead>
                     <tr>
                         <th>注文番号</th>
+                        <?php if($user['name'] === 'admin'){?>
+                        <th>購入者ID</th>
+                        <?php } ;?>
                         <th>購入日時</th>
                         <th>合計金額</th>
                     </tr>
@@ -27,6 +30,9 @@
                     <form action='detail.php' method="post">
                         <tr>
                             <th><?php print $history['history_id'];?></th>
+                            <?php if($user['name'] === 'admin'){?>
+                            <th><?php print $history['user_id'];?></th>
+                            <?php } ;?>
                             <th><?php print $history['purchase_datetime'];?></th>
                             <th><?php print $total_price[$history['history_id']];?></th>
                             <th><input type="hidden" name='history_id' value="<?php print $history['history_id'];?>"></th>
