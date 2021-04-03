@@ -19,7 +19,7 @@ $db = get_db_connect();
 $user = get_login_user($db);
 
 
-$item_id = get_post('item_id');
+$item_id = get_post('item_id',$token);
 
 if(add_cart($db,$user['user_id'], $item_id)){
   set_message('カートに商品を追加しました。');

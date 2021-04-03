@@ -18,7 +18,7 @@ function get_get($name){
 }
 
 function get_post($name,$token){
-  if(isset($_POST[$name]) === true && is_valid_csrf_token($token) === true){
+  if(isset($_POST[$name]) === true || is_valid_csrf_token($token) === true){
     return $_POST[$name];
   };
   return '';
