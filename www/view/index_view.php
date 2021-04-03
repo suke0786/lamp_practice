@@ -54,15 +54,13 @@
           </tr>
         </thead>
         <tbody>
-          <?php for($i=1;$i<count($items_ranking);$i++) {?>
-            <?php foreach($items_ranking as $ranking) { ;?>
+            <?php foreach($items_ranking as $key=>$ranking) { ;?>
               <tr>
-                <td><?php print $i++;?></td>
+                <td><?php print $key + 1;?></td>
                 <td><?php print $ranking['name'];?></td>
                 <td><?php print $ranking['sum(detail.amount)'] ;?></td>
               </tr>
             <?php } ;?>
-          <?php } ;?>
         </tbody>
       </table>
     </div>
