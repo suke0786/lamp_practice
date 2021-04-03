@@ -104,3 +104,23 @@ function get_history_detail($db,$history_id){
   return fetch_all_query($db,$sql,[$history_id]);
 }
 
+function get_ranking_items($db) {
+  $sql = "
+  SELECT 
+    sum(detail.amount), 
+    items.name 
+  FROM 
+    detail 
+  JOIN 
+    items
+  ON 
+    detail.item_id = items.item_id 
+  GROUP BY 
+    detail.item_id 
+  ORDER BY 
+    sum(amount) 
+  DESC LIMIT 3
+  ";
+  return fetch_all_query($db,$sql);
+}
+

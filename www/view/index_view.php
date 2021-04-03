@@ -43,7 +43,27 @@
       <?php } ?>
       </div>
     </div>
+    <div class = ranking>
+     <h1>人気ランキング</h1>
+     <table>
+        <thead>
+          <tr>
+            <td>順位</td>
+            <td>名前</td>
+            <td>購入数</td>
+          </tr>
+        </thead>
+        <tbody>
+            <?php foreach($items_ranking as $key=>$ranking) { ;?>
+              <tr>
+                <td><?php print $key + 1;?></td>
+                <td><?php print $ranking['name'];?></td>
+                <td><?php print $ranking['sum(detail.amount)'] ;?></td>
+              </tr>
+            <?php } ;?>
+        </tbody>
+      </table>
+    </div>
   </div>
-  
 </body>
 </html>
