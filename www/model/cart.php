@@ -104,6 +104,8 @@ function purchase_carts($db, $carts){
   }
 
   $db->beginTransaction();
+  insert_history($db,$carts[0]['user_id']);
+  $history_id = $db->lastInsertId();
   try {
   foreach($carts as $cart){
     if(update_item_stock(
@@ -113,8 +115,7 @@ function purchase_carts($db, $carts){
       ) === false){
       set_error($cart['name'] . 'の購入に失敗しました。');
     }
-      insert_history($db,$cart['user_id']);
-      insert_detail($db,$history_id = $db->lastInsertId(),$cart['item_id'],$cart['amount'],$cart['price']);
+      insert_detail($db,$history_id,$cart['item_id'],$cart['amount'],$cart['price']);
     }
   $db->commit();
   } catch (PDOException $e) {

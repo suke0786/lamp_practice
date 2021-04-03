@@ -34,7 +34,7 @@
                             <th><?php print $history['user_id'];?></th>
                             <?php } ;?>
                             <th><?php print $history['purchase_datetime'];?></th>
-                            <th><?php print $total_price[$history['history_id']];?></th>
+                            <th><?php print $history["sum(detail.amount * detail.price)"];?></th>
                             <th><input type="hidden" name='history_id' value="<?php print $history['history_id'];?>"></th>
                             <th><input type="submit" name="detail" value="購入明細"></th>
                         </tr>

@@ -20,7 +20,4 @@ $history = get_user_detail($db,$history_id);
 
 $detail = get_history_detail($db,$history_id);
 
-$total_price = sum_history($history);
-
-
 include_once VIEW_PATH . 'detail_view.php';

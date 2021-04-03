@@ -34,8 +34,7 @@ function get_user_history($db,$user_name,$user_id) {
       SELECT 
         history.history_id,
         history.purchase_datetime,
-        detail.amount,
-        detail.price
+        sum(detail.amount * detail.price)
       FROM
         history
       JOIN
@@ -44,22 +43,24 @@ function get_user_history($db,$user_name,$user_id) {
         history.history_id = detail.history_id
       WHERE
         user_id = ?
+      GROUP BY
+        history.history_id
       ";
       return fetch_all_query($db,$sql,[$user_id]);
   } else {
     $sql = "
-      SELECT 
-        history.history_id,
-        history.purchase_datetime,
-        history.user_id,
-        detail.amount,
-        detail.price
-      FROM
-        history
-      JOIN
-        detail
-      ON
-        history.history_id = detail.history_id
+    SELECT 
+      history.history_id,
+      history.purchase_datetime,
+      sum(detail.amount * detail.price)
+    FROM
+      history
+    JOIN
+      detail
+    ON
+      history.history_id = detail.history_id
+    GROUP BY 
+      history.history_id
       ";
       return fetch_all_query($db,$sql);
     }
@@ -70,8 +71,7 @@ function get_user_detail($db,$history_id) {
     SELECT 
       history.history_id,
       history.purchase_datetime,
-      detail.amount,
-      detail.price
+      sum(detail.amount * detail.price)
     FROM
       history
     JOIN
@@ -80,6 +80,8 @@ function get_user_detail($db,$history_id) {
       history.history_id = detail.history_id
     WHERE
       history.history_id = ?
+    GROUP BY
+      detail.history_id
     ";
     return fetch_all_query($db,$sql,[$history_id]);
 }
@@ -102,16 +104,3 @@ function get_history_detail($db,$history_id){
   return fetch_all_query($db,$sql,[$history_id]);
 }
 
-function sum_history($history) {
-  for($i=1; $i<=count($history); $i++){
-    $total_price = array();
-    foreach($history as $histories) {
-      $id_price = 0;
-      if($i = $histories['history_id']){
-          $id_price += $histories['price'] * $histories['amount'];
-      }
-      $total_price += array($histories['history_id']=>$id_price);
-    }
-  }
-  return $total_price;
-}
