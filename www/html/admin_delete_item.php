@@ -22,7 +22,7 @@ if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
 }
 
-$item_id = get_post('item_id');
+$item_id = get_post('item_id',$token);
 
 
 if(destroy_item($db, $item_id) === true){

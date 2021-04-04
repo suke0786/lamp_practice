@@ -22,8 +22,8 @@ if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
 }
 
-$item_id = get_post('item_id');
-$stock = get_post('stock');
+$item_id = get_post('item_id',$token);
+$stock = get_post('stock',$token);
 
 if(update_item_stock($db, $item_id, $stock)){
   set_message('在庫数を変更しました。');

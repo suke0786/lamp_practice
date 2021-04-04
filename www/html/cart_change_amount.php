@@ -18,8 +18,8 @@ if(is_logined() === false){
 $db = get_db_connect();
 $user = get_login_user($db);
 
-$cart_id = get_post('cart_id');
-$amount = get_post('amount');
+$cart_id = get_post('cart_id',$token);
+$amount = get_post('amount',$token);
 
 if(update_cart_amount($db, $cart_id, $amount)){
   set_message('購入数を更新しました。');

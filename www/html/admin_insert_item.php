@@ -22,10 +22,10 @@ if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
 }
 
-$name = get_post('name');
-$price = get_post('price');
-$status = get_post('status');
-$stock = get_post('stock');
+$name = get_post('name',$token);
+$price = get_post('price',$token);
+$status = get_post('status',$token);
+$stock = get_post('stock',$token);
 
 $image = get_file('image');
 

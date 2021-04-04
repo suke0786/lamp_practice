@@ -13,9 +13,9 @@ if(is_logined() === true){
   redirect_to(HOME_URL);
 }
 
-$name = get_post('name');
-$password = get_post('password');
-$password_confirmation = get_post('password_confirmation');
+$name = get_post('name',$token);
+$password = get_post('password',$token);
+$password_confirmation = get_post('password_confirmation',$token);
 
 $db = get_db_connect();
 

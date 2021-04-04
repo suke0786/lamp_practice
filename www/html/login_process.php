@@ -13,8 +13,8 @@ if(is_logined() === true){
   redirect_to(HOME_URL);
 }
 
-$name = get_post('name');
-$password = get_post('password');
+$name = get_post('name',$token);
+$password = get_post('password',$token);
 
 $db = get_db_connect();
 

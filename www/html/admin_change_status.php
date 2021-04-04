@@ -22,8 +22,8 @@ if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
 }
 
-$item_id = get_post('item_id');
-$changes_to = get_post('changes_to');
+$item_id = get_post('item_id',$token);
+$changes_to = get_post('changes_to',$token);
 
 if($changes_to === 'open'){
   update_item_status($db, $item_id, ITEM_STATUS_OPEN);
